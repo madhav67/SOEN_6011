@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 
 /**
  * Provides a graphical user interface for calculating the arccosine of a
- * number.
+ * number.s
  */
 public class ArccosCalculatorGui extends JFrame {
 
