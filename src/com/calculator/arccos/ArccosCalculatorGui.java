@@ -53,11 +53,22 @@ public class ArccosCalculatorGui extends JFrame {
     gbc.gridwidth = 2;
     add(inputField, gbc);
 
+    // Set accessible name and description for input field
+    inputField.getAccessibleContext().setAccessibleName("Input Field");
+    inputField.getAccessibleContext().setAccessibleDescription(
+        "Enter a number between -1 and 1 to calculate arccosine.");
+    inputField.setToolTipText("Enter a number between -1 and 1.");
+
     calculateButton = new JButton("Calculate");
     gbc.gridx = 0;
     gbc.gridy = 2;
     gbc.gridwidth = 2;
     add(calculateButton, gbc);
+
+    // Set mnemonic and accessible description for the calculate button
+    calculateButton.setMnemonic('C'); // Alt + C to click Calculate
+    calculateButton.getAccessibleContext().setAccessibleDescription(
+        "Calculate arccosine of the input value.");
 
     JLabel resultLabel = new JLabel("Arccos(x) in radians:");
     gbc.gridx = 0;
@@ -70,6 +81,11 @@ public class ArccosCalculatorGui extends JFrame {
     gbc.gridy = 3;
     add(resultField, gbc);
 
+    // Set accessible name and description for result field
+    resultField.getAccessibleContext().setAccessibleName("Result Field");
+    resultField.getAccessibleContext().setAccessibleDescription(
+        "Displays the result of the arccosine calculation.");
+
     JLabel timeLabel = new JLabel("Computation time (ms):");
     gbc.gridx = 0;
     gbc.gridy = 4;
@@ -80,6 +96,11 @@ public class ArccosCalculatorGui extends JFrame {
     gbc.gridx = 1;
     gbc.gridy = 4;
     add(timeField, gbc);
+
+    // Set accessible name and description for time field
+    timeField.getAccessibleContext().setAccessibleName("Time Field");
+    timeField.getAccessibleContext().setAccessibleDescription(
+        "Displays the time taken for computation in milliseconds.");
 
     calculateButton.addActionListener(new CalculateButtonListener());
 
@@ -120,12 +141,11 @@ public class ArccosCalculatorGui extends JFrame {
     }
 
     /**
-   * Calculates the arccosine using a Taylor series expansion.
-   *
-   * @param x the value to compute the arccosine for
-   * @return the arccosine of x
-   */
-
+     * Calculates the arccosine using a Taylor series expansion.
+     *
+     * @param x the value to compute the arccosine for
+     * @return the arccosine of x
+     */
     private double calculateArccos(double x) {
       double sum = Math.PI / 2;
       double term;
@@ -144,12 +164,11 @@ public class ArccosCalculatorGui extends JFrame {
     }
 
     /**
-   * Computes the factorial of a given number.
-   *
-   * @param n the number to compute the factorial for
-   * @return the factorial of n
-   */
-
+     * Computes the factorial of a given number.
+     *
+     * @param n the number to compute the factorial for
+     * @return the factorial of n
+     */
     private double factorial(double n) {
       if (n == 0) {
         return 1;
@@ -171,3 +190,4 @@ public class ArccosCalculatorGui extends JFrame {
     javax.swing.SwingUtilities.invokeLater(() -> new ArccosCalculatorGui().setVisible(true));
   }
 }
+
