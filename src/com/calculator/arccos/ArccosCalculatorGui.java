@@ -23,7 +23,7 @@ import javax.swing.WindowConstants;
  */
 public class ArccosCalculatorGui extends JFrame {
 
-  private JTextField inputField;
+  public static final JTextField inputField = new JTextField();
   private JTextField resultField;
   private JTextField timeField;
   private JButton calculateButton;
@@ -47,7 +47,6 @@ public class ArccosCalculatorGui extends JFrame {
     gbc.gridwidth = 2;
     add(inputLabel, gbc);
 
-    inputField = new JTextField();
     gbc.gridx = 0;
     gbc.gridy = 1;
     gbc.gridwidth = 2;
@@ -111,7 +110,7 @@ public class ArccosCalculatorGui extends JFrame {
   /**
    * Listener for the calculate button that computes the arccosine.
    */
-  private class CalculateButtonListener implements ActionListener {
+  public class CalculateButtonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
       try {
@@ -146,7 +145,7 @@ public class ArccosCalculatorGui extends JFrame {
      * @param x the value to compute the arccosine for
      * @return the arccosine of x
      */
-    private double calculateArccos(double x) {
+    public double calculateArccos(double x) {
       double sum = Math.PI / 2;
       double term;
       double xpower = x; // Changed to lowercase to follow camelCase convention
