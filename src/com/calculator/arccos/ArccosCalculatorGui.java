@@ -1,9 +1,12 @@
+package com.calculator.arccos;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 /**
  * Provides a graphical user interface for calculating the arccosine of a number.
@@ -21,7 +24,7 @@ public class ArccosCalculatorGui extends JFrame {
   public ArccosCalculatorGui() {
     setTitle("Arccosine Calculator");
     setSize(500, 250);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setLayout(null);
 
     JLabel inputLabel = new JLabel("Enter value for x (between -1 and 1):");
@@ -88,46 +91,47 @@ public class ArccosCalculatorGui extends JFrame {
         timeField.setText("");
       }
     }
-  }
 
-  /**
-   * Calculates the arccosine using a Taylor series expansion.
-   *
-   * @param x the value to compute the arccosine for
-   * @return the arccosine of x
-   */
-  private double calculateArccos(double x) {
-    double sum = Math.PI / 2;
-    double term;
-    double xpower = x; // Changed to lowercase to follow camelCase convention
-    int n = 0;
+    /**
+     * Calculates the arccosine using a Taylor series expansion.
+     *
+     * @param x the value to compute the arccosine for
+     * @return the arccosine of x
+     */
+    private double calculateArccos(double x) {
+      double sum = Math.PI / 2;
+      double term;
+      double xpower = x;
+      double n = 0;
 
-    do {
-      term = 
-      factorial(2 * n) / (Math.pow(2, 2 * n) * Math.pow(factorial(n), 2) * (2 * n + 1)) * xpower;
-      sum -= term;
-      n++;
-      xpower *= x * x;
-    } while (n < 86);
+      do {
+        term = 
+          (factorial(2 * n) / (Math.pow(2.0, 2 * n) 
+          * Math.pow(factorial(n), 2) * (2 * n + 1))) * xpower;
+        sum -= term;
+        n++;
+        xpower *= x * x;
+      } while (n < 86);
 
-    return sum;
-  }
-
-  /**
-   * Computes the factorial of a given number.
-   *
-   * @param n the number to compute the factorial for
-   * @return the factorial of n
-   */
-  private double factorial(int n) {
-    if (n == 0) {
-      return 1;
+      return sum;
     }
-    double result = 1;
-    for (int i = 1; i <= n; i++) {
-      result *= i;
+
+    /**
+     * Computes the factorial of a given number.
+     *
+     * @param n the number to compute the factorial for
+     * @return the factorial of n
+     */
+    private double factorial(double n) {
+      if (n == 0) {
+        return 1;
+      }
+      double result = 1;
+      for (int i = 1; i <= n; i++) {
+        result *= i;
+      }
+      return result;
     }
-    return result;
   }
 
   /**
