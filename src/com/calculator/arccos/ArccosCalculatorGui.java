@@ -1,5 +1,15 @@
+/**
+ * ArccosCalculatorGui.java
+ * Version: 1.0.0
+ * Changelog:
+ * - 1.0.0: Initial release.
+ */
+
 package com.calculator.arccos;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -25,39 +35,56 @@ public class ArccosCalculatorGui extends JFrame {
     setTitle("Arccosine Calculator");
     setSize(500, 250);
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    setLayout(null);
+    setLayout(new GridBagLayout());
 
-    JLabel inputLabel = new JLabel("Enter value for x (between -1 and 1):");
-    inputLabel.setBounds(20, 20, 300, 25);
-    add(inputLabel);
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(10, 10, 10, 10);
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+
+    final JLabel inputLabel = new JLabel("Enter value for x (between -1 and 1):");
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.gridwidth = 2;
+    add(inputLabel, gbc);
 
     inputField = new JTextField();
-    inputField.setBounds(20, 50, 150, 25);
-    add(inputField);
+    gbc.gridx = 0;
+    gbc.gridy = 1;
+    gbc.gridwidth = 2;
+    add(inputField, gbc);
 
     calculateButton = new JButton("Calculate");
-    calculateButton.setBounds(20, 90, 150, 25);
-    add(calculateButton);
+    gbc.gridx = 0;
+    gbc.gridy = 2;
+    gbc.gridwidth = 2;
+    add(calculateButton, gbc);
 
     JLabel resultLabel = new JLabel("Arccos(x) in radians:");
-    resultLabel.setBounds(20, 120, 150, 25);
-    add(resultLabel);
+    gbc.gridx = 0;
+    gbc.gridy = 3;
+    add(resultLabel, gbc);
 
     resultField = new JTextField();
-    resultField.setBounds(180, 120, 250, 25);
     resultField.setEditable(false);
-    add(resultField);
+    gbc.gridx = 1;
+    gbc.gridy = 3;
+    add(resultField, gbc);
 
     JLabel timeLabel = new JLabel("Computation time (ms):");
-    timeLabel.setBounds(20, 150, 150, 25);
-    add(timeLabel);
+    gbc.gridx = 0;
+    gbc.gridy = 4;
+    add(timeLabel, gbc);
 
     timeField = new JTextField();
-    timeField.setBounds(180, 150, 250, 25);
     timeField.setEditable(false);
-    add(timeField);
+    gbc.gridx = 1;
+    gbc.gridy = 4;
+    add(timeField, gbc);
 
     calculateButton.addActionListener(new CalculateButtonListener());
+
+    // Add keyboard shortcut for calculation
+    getRootPane().setDefaultButton(calculateButton);
   }
 
   /**
@@ -69,7 +96,7 @@ public class ArccosCalculatorGui extends JFrame {
       try {
         double x = Double.parseDouble(inputField.getText());
         if (x < -1 || x > 1) {
-          throw new IllegalArgumentException("Error: Input must be within the range [-1, 1]");
+          throw new IllegalArgumentException("Input must be within the range [-1, 1]");
         }
 
         long startTime = System.nanoTime();
@@ -81,7 +108,7 @@ public class ArccosCalculatorGui extends JFrame {
         resultField.setText(String.format("%.10f", result));
         timeField.setText(String.format("%.10f", elapsedTime));
       } catch (NumberFormatException ex) {
-        resultField.setText("Invalid input. Please enter a valid number.");
+        resultField.setText("Please enter a valid number!");
         timeField.setText("");
       } catch (IllegalArgumentException ex) {
         resultField.setText(ex.getMessage());
@@ -93,21 +120,21 @@ public class ArccosCalculatorGui extends JFrame {
     }
 
     /**
-     * Calculates the arccosine using a Taylor series expansion.
-     *
-     * @param x the value to compute the arccosine for
-     * @return the arccosine of x
-     */
+   * Calculates the arccosine using a Taylor series expansion.
+   *
+   * @param x the value to compute the arccosine for
+   * @return the arccosine of x
+   */
+
     private double calculateArccos(double x) {
       double sum = Math.PI / 2;
       double term;
-      double xpower = x;
+      double xpower = x; // Changed to lowercase to follow camelCase convention
       double n = 0;
 
       do {
-        term = 
-          (factorial(2 * n) / (Math.pow(2.0, 2 * n) 
-          * Math.pow(factorial(n), 2) * (2 * n + 1))) * xpower;
+        term =
+      factorial(2 * n) / (Math.pow(2, 2 * n) * Math.pow(factorial(n), 2) * (2 * n + 1)) * xpower;
         sum -= term;
         n++;
         xpower *= x * x;
@@ -117,11 +144,12 @@ public class ArccosCalculatorGui extends JFrame {
     }
 
     /**
-     * Computes the factorial of a given number.
-     *
-     * @param n the number to compute the factorial for
-     * @return the factorial of n
-     */
+   * Computes the factorial of a given number.
+   *
+   * @param n the number to compute the factorial for
+   * @return the factorial of n
+   */
+
     private double factorial(double n) {
       if (n == 0) {
         return 1;
